@@ -495,7 +495,20 @@ function createGoldParticles() {
     }, 340);
   });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("siteVideo");
 
+  if (video) {
+    video.play().catch(() => {
+      console.log("Autoplay blocked, waiting for user interaction");
+
+      // Force play after ANY user interaction
+      document.addEventListener("click", () => {
+        video.play();
+      }, { once: true });
+    });
+  }
+});
 function createGlobalHearts() {
   const container = document.querySelector(".hearts-global");
   if (!container) return;
